@@ -1,7 +1,7 @@
 pkgname=sioyek-dev
 pkgver=2.0.0.r1086.g719e2070
 pkgrel=1
-pkgdesc="PDF viewer for research papers and technical books (development build with bundled mupdf)"
+pkgdesc="PDF viewer for research papers and technical books (development branch)"
 arch=('x86_64')
 license=('GPL3')
 url="https://github.com/ahrm/sioyek"
