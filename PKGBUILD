@@ -51,7 +51,7 @@ package() {
 exec /usr/lib/sioyek/sioyek "$@"
 END
     install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
-    install -Dm644 resources/sioyek-icon-linux.png "$pkgdir/usr/share/pixmaps/sioyek.png"
+    install -Dm644 resources/sioyek-icon-linux.png "$pkgdir/usr/share/pixmaps/sioyek-icon-linux.png"
     install -Dm644 resources/sioyek.desktop -t "$pkgdir/usr/share/applications/"
     install -dm755 "$pkgdir/usr/share/sioyek/shaders"
     cp -r pdf_viewer/shaders/* "$pkgdir/usr/share/sioyek/shaders/"
