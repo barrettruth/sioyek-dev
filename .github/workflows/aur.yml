@@ -12,7 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: makepkg --printsrcinfo > .SRCINFO
+      - run: |
+          useradd -m builder
+          chown -R builder: .
+          su builder -c 'makepkg --printsrcinfo > .SRCINFO'
 
       - name: Push to AUR
         env:
