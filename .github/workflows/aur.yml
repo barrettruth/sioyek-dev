@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     container: archlinux:base-devel
     steps:
+      - run: pacman -Sy --noconfirm openssh git
+
       - uses: actions/checkout@v4
 
       - run: |
@@ -22,12 +24,11 @@ jobs:
         env:
           AUR_SSH_KEY: ${{ secrets.AUR_SSH_KEY }}
         run: |
-          pacman -Sy --noconfirm openssh git
-          mkdir -p ~/.ssh
-          echo "$AUR_SSH_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          echo "aur.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIhd" >> ~/.ssh/known_hosts
-          git config --global safe.directory "$GITHUB_WORKSPACE"
+          mkdir -p /root/.ssh
+          echo "$AUR_SSH_KEY" > /root/.ssh/id_ed25519
+          chmod 600 /root/.ssh/id_ed25519
+          echo "aur.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIhd" >> /root/.ssh/known_hosts
+          git config --global safe.directory '*'
           git config user.name "Barrett Ruth"
           git config user.email "barrettruth@gmail.com"
           git remote add aur ssh://aur@aur.archlinux.org/sioyek-dev.git
