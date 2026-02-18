@@ -31,9 +31,11 @@ jobs:
           chmod 600 /root/.ssh/id_ed25519
           ssh-keyscan -t ed25519 aur.archlinux.org >> /root/.ssh/known_hosts 2>/dev/null
           git config --global safe.directory '*'
+          git clone ssh://aur@aur.archlinux.org/sioyek-dev.git /tmp/aur
+          cp PKGBUILD .SRCINFO /tmp/aur/
+          cd /tmp/aur
           git config user.name "Barrett Ruth"
           git config user.email "barrettruth@gmail.com"
-          git remote add aur ssh://aur@aur.archlinux.org/sioyek-dev.git
-          git add .SRCINFO
+          git add PKGBUILD .SRCINFO
           git diff --cached --quiet || git commit -m "update .SRCINFO"
-          git push aur HEAD:master
+          git push
