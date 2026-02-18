@@ -36,4 +36,4 @@ jobs:
           git remote add aur ssh://aur@aur.archlinux.org/sioyek-dev.git
           git add .SRCINFO
           git diff --cached --quiet || git commit -m "update .SRCINFO"
-          git push aur HEAD:main
+          git push aur HEAD:master
