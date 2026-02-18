@@ -1,6 +1,7 @@
 name: Update AUR
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: [PKGBUILD]
