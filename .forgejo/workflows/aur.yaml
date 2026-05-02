@@ -9,31 +9,31 @@ on:
 jobs:
   publish:
     runs-on: nix
-    container: archlinux:base-devel
     steps:
-      - run: pacman -Sy --noconfirm openssh git
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - run: |
-          useradd -m builder
-          chown -R builder: .
-          su builder -c 'makepkg --printsrcinfo > .SRCINFO'
+      - name: Generate .SRCINFO
+        run: |
+          makepkg_conf="$(nix eval --raw nixpkgs#pacman.outPath)/etc/makepkg.conf"
+          nix-shell -p pacman git --run "makepkg --config '$makepkg_conf' --printsrcinfo" > .SRCINFO
 
       - name: Push to AUR
         env:
           AUR_SSH_KEY: ${{ secrets.AUR_SSH_KEY }}
         run: |
-          mkdir -p /root/.ssh
-          echo "$AUR_SSH_KEY" > /root/.ssh/id_ed25519
-          chmod 600 /root/.ssh/id_ed25519
-          ssh-keyscan -t ed25519 aur.archlinux.org >> /root/.ssh/known_hosts 2>/dev/null
+          ssh_dir="$(mktemp -d)"
+          trap 'rm -rf "$ssh_dir"' EXIT
+          printf '%s\n' "$AUR_SSH_KEY" > "$ssh_dir/id_ed25519"
+          chmod 600 "$ssh_dir/id_ed25519"
+          ssh-keyscan -t ed25519 aur.archlinux.org > "$ssh_dir/known_hosts" 2>/dev/null
+          export GIT_SSH_COMMAND="ssh -i $ssh_dir/id_ed25519 -o IdentitiesOnly=yes -o UserKnownHostsFile=$ssh_dir/known_hosts"
           git config --global safe.directory '*'
-          git clone ssh://aur@aur.archlinux.org/sioyek-dev.git /tmp/aur
-          cp PKGBUILD .SRCINFO /tmp/aur/
-          cd /tmp/aur
+          aur_dir="$(mktemp -d)"
+          git clone ssh://aur@aur.archlinux.org/sioyek-dev.git "$aur_dir"
+          cp PKGBUILD .SRCINFO "$aur_dir/"
+          cd "$aur_dir"
           git config user.name "Barrett Ruth"
           git config user.email "br@barrettruth.com"
           git add PKGBUILD .SRCINFO
