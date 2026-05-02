@@ -16,6 +16,10 @@ jobs:
 
       - name: Generate .SRCINFO
         run: |
+          tmp_home="$(mktemp -d)"
+          trap 'rm -rf "$tmp_home"' EXIT
+          export HOME="$tmp_home"
+          export XDG_CONFIG_HOME="$tmp_home/.config"
           makepkg_conf="$(nix eval --raw nixpkgs#pacman.outPath)/etc/makepkg.conf"
           nix-shell -p pacman git --run "makepkg --config '$makepkg_conf' --printsrcinfo" > .SRCINFO
 
@@ -23,13 +27,16 @@ jobs:
         env:
           AUR_SSH_KEY: ${{ secrets.AUR_SSH_KEY }}
         run: |
-          ssh_dir="$(mktemp -d)"
-          trap 'rm -rf "$ssh_dir"' EXIT
+          tmp_home="$(mktemp -d)"
+          trap 'rm -rf "$tmp_home"' EXIT
+          export HOME="$tmp_home"
+          export XDG_CONFIG_HOME="$tmp_home/.config"
+          ssh_dir="$tmp_home/.ssh"
+          mkdir -p "$ssh_dir"
           printf '%s\n' "$AUR_SSH_KEY" > "$ssh_dir/id_ed25519"
           chmod 600 "$ssh_dir/id_ed25519"
           ssh-keyscan -t ed25519 aur.archlinux.org > "$ssh_dir/known_hosts" 2>/dev/null
           export GIT_SSH_COMMAND="ssh -i $ssh_dir/id_ed25519 -o IdentitiesOnly=yes -o UserKnownHostsFile=$ssh_dir/known_hosts"
-          git config --global safe.directory '*'
           aur_dir="$(mktemp -d)"
           git clone ssh://aur@aur.archlinux.org/sioyek-dev.git "$aur_dir"
           cp PKGBUILD .SRCINFO "$aur_dir/"
