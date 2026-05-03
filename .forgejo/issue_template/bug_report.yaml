@@ -1,0 +1,56 @@
+name: Bug Report
+description: Report an issue with the sioyek-dev AUR package
+title: 'bug: '
+labels: [bug]
+body:
+  - type: checkboxes
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true
+        - label: This is about the sioyek-dev AUR package, not an upstream sioyek application bug
+          required: true
+
+  - type: input
+    attributes:
+      label: Package version
+      description: Output of `pacman -Q sioyek-dev`
+      placeholder: sioyek-dev 2.0.0.r1086.g719e2070-1
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: System
+      placeholder: Arch Linux x86_64, kernel version, relevant desktop/session details
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Description
+      description: What happened, and what did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Install or build sioyek-dev with ...
+        2. Run ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Build or install output
+      description: Relevant `makepkg`, AUR helper, or pacman output
+      render: text
+
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: Any local packaging changes, flags, or upstream details that may matter

@@ -1,0 +1,34 @@
+name: Feature Request
+description: Suggest a packaging improvement
+title: 'feat: '
+labels: [enhancement]
+body:
+  - type: checkboxes
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I have searched existing issues and this has not already been requested
+          required: true
+
+  - type: textarea
+    attributes:
+      label: Problem
+      description: What package maintenance problem does this solve?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Proposed solution
+      description: Describe the package change or behavior you want.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Alternatives considered
+
+  - type: textarea
+    attributes:
+      label: AUR impact
+      description: Any compatibility, dependency, or upgrade impact for AUR users
