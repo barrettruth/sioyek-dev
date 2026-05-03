@@ -7,8 +7,27 @@ on:
     paths: [PKGBUILD]
 
 jobs:
-  publish:
+  package_metadata:
+    name: Package Metadata
     runs-on: nix
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate .SRCINFO
+        run: |
+          tmp_home="$(mktemp -d)"
+          srcinfo="$(mktemp)"
+          trap 'rm -rf "$tmp_home" "$srcinfo"' EXIT
+          export HOME="$tmp_home"
+          export XDG_CONFIG_HOME="$tmp_home/.config"
+          makepkg_conf="$(nix eval --raw nixpkgs#pacman.outPath)/etc/makepkg.conf"
+          nix-shell -p pacman git --run "makepkg --config '$makepkg_conf' --printsrcinfo" > "$srcinfo"
+          test -s "$srcinfo"
+
+  publish:
+    name: Publish
+    runs-on: nix
+    needs: [package_metadata]
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
         with:
