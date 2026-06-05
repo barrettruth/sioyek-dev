@@ -17,9 +17,9 @@ This package is intentionally different from the other Sioyek AUR packages:
 
 | Package | Source | MuPDF strategy | Best fit |
 | --- | --- | --- | --- |
-| `sioyek` | Stable release | Arch `libmupdf` | Released Sioyek builds |
-| `sioyek-git` | Upstream `development` branch | Arch `libmupdf` | Development branch with system libraries |
-| `sioyek-dev` | Upstream `development` branch | Bundled upstream `mupdf` submodule | Development branch with matching MuPDF sources |
+| [`sioyek`](https://aur.archlinux.org/packages/sioyek) | Stable release | Arch `libmupdf` | Released Sioyek builds |
+| [`sioyek-git`](https://aur.archlinux.org/packages/sioyek-git) | Upstream `development` branch | Arch `libmupdf` | Development branch with system libraries |
+| [`sioyek-dev`](https://aur.archlinux.org/packages/sioyek-dev) | Upstream `development` branch | Bundled upstream `mupdf` submodule | Development branch with matching MuPDF sources |
 
 The main reason to use `sioyek-dev` is to avoid crashes or build/runtime
 breakage from Sioyek being compiled against one MuPDF version and run against
