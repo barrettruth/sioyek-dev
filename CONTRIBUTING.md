@@ -1,6 +1,6 @@
 # Contributing
 
-Development, issues, and pull requests happen on [Forgejo](https://git.barrettruth.com/barrettruth/sioyek-dev).
+Development, issues, and pull requests happen on [Forgejo](https://forge.barrettruth.com/barrettruth/sioyek-dev).
 
 ## Scope
 

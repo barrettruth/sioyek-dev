@@ -4,7 +4,7 @@ Arch Linux PKGBUILD for Sioyek that "just works."
 
 > [!NOTE]
 > Due to GitHub's historic unreliability, active development is hosted on
-> [Forgejo](https://git.barrettruth.com/barrettruth/sioyek-dev).
+> [Forgejo](https://forge.barrettruth.com/barrettruth/sioyek-dev).
 > GitHub is maintained as a read-only mirror.
 
 - Tracks upstream Sioyek's `development` branch
