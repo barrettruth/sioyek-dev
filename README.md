@@ -2,11 +2,6 @@
 
 Arch Linux PKGBUILD for Sioyek that "just works."
 
-> [!NOTE]
-> Due to GitHub's historic unreliability, active development is hosted on
-> [Forgejo](https://forge.barrettruth.com/barrettruth/sioyek-dev).
-> GitHub is maintained as a read-only mirror.
-
 - Tracks upstream Sioyek's `development` branch
 - Builds the matching upstream `mupdf` submodule instead of linking Arch's `libmupdf`
 - Supports X11/Wayland
