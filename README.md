@@ -29,9 +29,9 @@ makepkg -si
 ## Display Backend
 
 In a Wayland session, the launcher defaults to XWayland when `QT_QPA_PLATFORM`
-is unset or empty. It preserves any nonempty value.
+is unset or empty.
 
-For native Wayland, install the optional `qt6-wayland` package. Then run:
+For native Wayland, install the optional `qt6-wayland` package and run:
 
 ```sh
 QT_QPA_PLATFORM=wayland sioyek
