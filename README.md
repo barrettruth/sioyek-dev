@@ -29,30 +29,19 @@ makepkg -si
 ## Display Backend
 
 In a Wayland session, the launcher defaults to XWayland when `QT_QPA_PLATFORM`
-is unset or empty.
-
-For native Wayland, install the optional `qt6-wayland` package and run:
+is unset or empty. For native Wayland, install `qt6-wayland` and run:
 
 ```sh
 QT_QPA_PLATFORM=wayland sioyek
 ```
 
-Some users [have problems with Wayland](https://github.com/ahrm/sioyek/issues/1660).
-To select XWayland (which is the default) in a Wayland session, run:
-
-```sh
-QT_QPA_PLATFORM=xcb sioyek
-```
-
-### Desktop Launches
-
-For persistent native Wayland, copy `/usr/share/applications/sioyek.desktop` to
+For desktop launches, copy `/usr/share/applications/sioyek.desktop` to
 `$XDG_DATA_HOME/applications/` (default: `~/.local/share/applications/`).
-Create the directory if needed. If a user copy exists, edit it instead.
 Set `Exec` under `[Desktop Entry]`:
 
 ```ini
 Exec=env QT_QPA_PLATFORM=wayland sioyek %f
 ```
 
-Restart Sioyek. Pacman does not overwrite the user copy during upgrades.
+If you [have problems with Wayland](https://github.com/ahrm/sioyek/issues/1660),
+replace `wayland` with `xcb` for XWayland. Restart Sioyek after changing backends.
