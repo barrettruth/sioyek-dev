@@ -43,3 +43,16 @@ To select XWayland (which is the default) in a Wayland session, run:
 ```sh
 QT_QPA_PLATFORM=xcb sioyek
 ```
+
+### Desktop Launches
+
+For persistent native Wayland, copy `/usr/share/applications/sioyek.desktop` to
+`$XDG_DATA_HOME/applications/` (default: `~/.local/share/applications/`).
+Create the directory if needed. If a user copy exists, edit it instead.
+Set `Exec` under `[Desktop Entry]`:
+
+```ini
+Exec=env QT_QPA_PLATFORM=wayland sioyek %f
+```
+
+Restart Sioyek. Pacman does not overwrite the user copy during upgrades.
