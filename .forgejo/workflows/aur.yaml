@@ -22,7 +22,7 @@ jobs:
           export HOME="$tmp_home"
           export XDG_CONFIG_HOME="$tmp_home/.config"
           makepkg_conf="$(nix eval --raw nixpkgs#pacman.outPath)/etc/makepkg.conf"
-          nix-shell -p pacman git --run "makepkg --config '$makepkg_conf' --printsrcinfo" > "$srcinfo"
+          nix shell nixpkgs#pacman nixpkgs#git --command makepkg --config "$makepkg_conf" --printsrcinfo > "$srcinfo"
           test -s "$srcinfo"
 
   publish:
@@ -42,7 +42,7 @@ jobs:
           export HOME="$tmp_home"
           export XDG_CONFIG_HOME="$tmp_home/.config"
           makepkg_conf="$(nix eval --raw nixpkgs#pacman.outPath)/etc/makepkg.conf"
-          nix-shell -p pacman git --run "makepkg --config '$makepkg_conf' --printsrcinfo" > .SRCINFO
+          nix shell nixpkgs#pacman nixpkgs#git --command makepkg --config "$makepkg_conf" --printsrcinfo > .SRCINFO
 
       - name: Push to AUR
         env:
