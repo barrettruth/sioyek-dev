@@ -29,14 +29,10 @@ makepkg -si
 ## Display Backend
 
 In a Wayland session, the launcher defaults to XWayland when `QT_QPA_PLATFORM`
-is unset or empty. For native Wayland, install `qt6-wayland` and run:
+is unset or empty.
 
-```sh
-QT_QPA_PLATFORM=wayland sioyek
-```
-
-For desktop launches, copy `/usr/share/applications/sioyek.desktop` to
-`$XDG_DATA_HOME/applications/` (default: `~/.local/share/applications/`).
+For native Wayland, install `qt6-wayland`.
+Copy `/usr/share/applications/sioyek.desktop` to `$XDG_DATA_HOME/applications/`.
 Set `Exec` under `[Desktop Entry]`:
 
 ```ini
@@ -44,4 +40,4 @@ Exec=env QT_QPA_PLATFORM=wayland sioyek %f
 ```
 
 If you [have problems with Wayland](https://github.com/ahrm/sioyek/issues/1660),
-replace `wayland` with `xcb` for XWayland. Restart Sioyek after changing backends.
+replace `wayland` with `xcb` for XWayland.
