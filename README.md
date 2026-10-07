@@ -37,9 +37,8 @@ For native Wayland, install the optional `qt6-wayland` package and run:
 QT_QPA_PLATFORM=wayland sioyek
 ```
 
-Upstream [#1660](https://github.com/ahrm/sioyek/issues/1660) reports an invisible
-window with native Wayland on niri, NVIDIA, and Qt 6.11.1. To select XWayland in
-a Wayland session, run:
+Some users [have problems with Wayland](https://github.com/ahrm/sioyek/issues/1660).
+To select XWayland (which is the default) in a Wayland session, run:
 
 ```sh
 QT_QPA_PLATFORM=xcb sioyek
