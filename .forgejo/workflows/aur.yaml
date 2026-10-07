@@ -48,6 +48,7 @@ jobs:
         env:
           AUR_SSH_KEY: ${{ secrets.AUR_SSH_KEY }}
         run: |
+          nix shell nixpkgs#git nixpkgs#openssh --command bash -e <<'SCRIPT'
           tmp_home="$(mktemp -d)"
           trap 'rm -rf "$tmp_home"' EXIT
           export HOME="$tmp_home"
@@ -67,3 +68,4 @@ jobs:
           git add PKGBUILD .SRCINFO
           git diff --cached --quiet || git commit -m "update .SRCINFO"
           git push
+          SCRIPT
