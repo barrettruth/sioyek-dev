@@ -4,7 +4,7 @@ Arch Linux PKGBUILD for Sioyek that "just works."
 
 - Tracks upstream Sioyek's `development` branch
 - Builds the matching upstream `mupdf` submodule instead of linking Arch's `libmupdf`
-- Supports X11/Wayland
+- Supports X11 and defaults to XWayland in Wayland sessions
 
 ## Why This Package Exists
 
@@ -24,4 +24,23 @@ another. If `sioyek-git` works well for your system, it is also a valid package.
 
 ```sh
 makepkg -si
+```
+
+## Display Backend
+
+In a Wayland session, the launcher defaults to XWayland when `QT_QPA_PLATFORM`
+is unset or empty. It preserves any nonempty value.
+
+For native Wayland, install the optional `qt6-wayland` package. Then run:
+
+```sh
+QT_QPA_PLATFORM=wayland sioyek
+```
+
+Upstream [#1660](https://github.com/ahrm/sioyek/issues/1660) reports an invisible
+window with native Wayland on niri, NVIDIA, and Qt 6.11.1. To select XWayland in
+a Wayland session, run:
+
+```sh
+QT_QPA_PLATFORM=xcb sioyek
 ```
